@@ -3,8 +3,6 @@ import torch.nn as nn
 from typing import Union
 
 _shape_t = Union[int, list[int], torch.Size]
-
-
 class LayerNorm(nn.Module):
     def __init__(
         self, normalized_shape, eps: float = 1e-5, elementwise_affine: bool = True
@@ -23,6 +21,9 @@ class LayerNorm(nn.Module):
             self.bias = nn.Parameter(torch.zeros(*self.normalized_shape))
             print(f"weight.shape: {self.weight.shape}")
             print(f"bias.shape: {self.bias.shape}")
+        else:
+            self.register_parameter("weight", None)
+            self.register_parameter("bias", None)
 
     def reset_parameters(self):
         if self.elementwise_affine:
@@ -122,7 +123,7 @@ def test_layer_norm_2D():
 
 
 if __name__ == "__main__":
-    print('='*20)
+    print("=" * 20)
     test_layer_norm_1D()
-    print('='*20)
+    print("=" * 20)
     test_layer_norm_2D()
