@@ -47,8 +47,8 @@ class LLTMFunction(Function):
 
     @staticmethod
     def backward(ctx, grad_h, grad_cell):
-        X, weights, input_gate, output_gate, old_cell = ctx.saved_variables[:5]
-        new_cell, candidate_cell, gate_weights = ctx.saved_variables[5:]
+        X, weights, input_gate, output_gate, old_cell = ctx.saved_tensors[:5]
+        new_cell, candidate_cell, gate_weights = ctx.saved_tensors[5:]
 
         d_input = d_weights = d_bias = d_old_h = d_old_cell = None
 
